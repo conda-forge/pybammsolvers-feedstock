@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pybammsolvers
-  version: "0.8.2"
+  version: "0.9.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pybammsolvers-${{ version }}.tar.gz
-  sha256: fb92fb785607df8ce3ad0d035c0bf61c418294f38f8c5fec82b18bff58c74042
+  sha256: dc9fba98fec8ac511cae36b72691c6eb206ec0bf6be18a1e99fe7c531fdd2651
   patches:
     # use conda-forge CasADi
     - 0001-Fix-USE_PYTHON_CASADI.patch
@@ -20,7 +20,7 @@ source:
     - 0003-Fix-Windows-cmake-prefix-path.patch
 
 build:
-  number: 1
+  number: 0
   script:
     # it is recommended to use the llvm-openmp package on windows
     # as vcomp14 is not updated by Microsoft anymore
