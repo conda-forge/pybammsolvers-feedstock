@@ -14,10 +14,12 @@ source:
   patches:
     # use conda-forge CasADi
     - 0001-Fix-USE_PYTHON_CASADI.patch
-    # remove CXX11 ABI definition to avoid incompatibility
-    - 0002-Remove-CXX11-ABI-Definition.patch
     # find BLAS but still set SUNDIALS_LIBRARIES for pybammsolvers
-    - 0003-Fix-Windows-cmake-prefix-path.patch
+    - 0002-Fix-Windows-cmake-prefix-path.patch
+    # use the host sundials/suitesparse instead of the vendored submodules
+    - 0003-Skip-vendored-SUNDIALS-SuiteSparse-under-conda.patch
+    # do not force the legacy std::string ABI when linking conda-forge CasADi
+    - 0004-Scope-CasADi-CXX11-ABI-detection-to-pip-casadi.patch
 
 build:
   number: 0
@@ -51,7 +53,7 @@ requirements:
   run:
     - python
     - casadi
-    - numpy
+    - numpy >=2.0.0
 
 tests:
   - python:
