@@ -1,0 +1,25 @@
+The _GLIBCXX_USE_CXX11_ABI reconciliation exists solely because CasADi's
+PyPI wheel hard-codes `_GLIBCXX_USE_CXX11_ABI=0` on its consumers. It
+probes ${CASADI_LIB_DIR}/libcasadi.so*, which is only set on the
+USE_PYTHON_CASADI branch; with a system CasADi (conda-forge, as selected
+by 0001) the glob is empty, the probe falls back to 0 and idaklu is
+compiled with the legacy std::string ABI against a C++11-ABI libcasadi,
+leaving casadi's std::string symbols undefined at link time.
+
+Restrict the block to the Python-CasADi case, where it is meaningful.
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -240,7 +240,10 @@ endif ()
+ # `_GLIBCXX_USE_CXX11_ABI=0` on consumers: correct for the x86_64 wheel (legacy
+ # ABI) but wrong for the aarch64 wheel (C++11 ABI), leaving casadi's std::string
+ # symbols unresolved. Detect libcasadi's real ABI and override CasADi's guess.
+-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
++# Only relevant for the PyPI wheel: a system CasADi (conda-forge, distro, vcpkg)
++# is built against the same libstdc++ as this extension, and the probe below has
++# no CASADI_LIB_DIR to look in, so it would wrongly force the legacy ABI.
++if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND USE_PYTHON_CASADI)
+     # Drop CasADi's hard-coded (and, on aarch64, wrong) ABI interface definition.
+     if (TARGET casadi::casadi)
+         get_target_property(_casadi_defs casadi::casadi INTERFACE_COMPILE_DEFINITIONS)
