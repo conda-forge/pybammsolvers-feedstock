@@ -22,7 +22,7 @@ source:
     - 0004-Scope-CasADi-CXX11-ABI-detection-to-pip-casadi.patch
 
 build:
-  number: 0
+  number: 1
   script:
     # it is recommended to use the llvm-openmp package on windows
     # as vcomp14 is not updated by Microsoft anymore
