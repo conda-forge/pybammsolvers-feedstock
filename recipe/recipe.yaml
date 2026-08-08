@@ -22,7 +22,7 @@ source:
     - 0004-Scope-CasADi-CXX11-ABI-detection-to-pip-casadi.patch
 
 build:
-  number: 0
+  number: 1
   script:
     # it is recommended to use the llvm-openmp package on windows
     # as vcomp14 is not updated by Microsoft anymore
@@ -46,7 +46,7 @@ requirements:
     - suitesparse
     # need sundials 7.6+ for openmp support on osx builds
     # remove once there is a migrator for sundials 7.7
-    - sundials 7.7.*
+    - sundials
     - if: not linux
       then: llvm-openmp
       else: libgomp
