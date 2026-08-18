@@ -63,7 +63,7 @@ tests:
 
 about:
   summary: Python interface for the IDAKLU solver
-  homepage: https://github.com/pybamm-team/pybammsolvers
+  homepage: https://github.com/pybamm-team/PyBaMM
   license: BSD-3-Clause
   license_file: LICENSE
 
