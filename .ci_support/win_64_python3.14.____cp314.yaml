@@ -18,5 +18,7 @@ python:
 - 3.14.* *_cp314
 suitesparse:
 - '7'
+sundials:
+- '7.8'
 target_platform:
 - win-64
