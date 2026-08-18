@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pybammsolvers
-  version: "0.9.0"
+  version: "0.9.1"
 
 package:
   name: ${{ name|lower }}
@@ -10,19 +10,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pybammsolvers-${{ version }}.tar.gz
-  sha256: dc9fba98fec8ac511cae36b72691c6eb206ec0bf6be18a1e99fe7c531fdd2651
+  sha256: 13b54410727ee0649a1c106d53a19565a1f28c2f965cafb7c5a21979ae1a0f92
   patches:
-    # use conda-forge CasADi
-    - 0001-Fix-USE_PYTHON_CASADI.patch
     # find BLAS but still set SUNDIALS_LIBRARIES for pybammsolvers
-    - 0002-Fix-Windows-cmake-prefix-path.patch
-    # use the host sundials/suitesparse instead of the vendored submodules
-    - 0003-Skip-vendored-SUNDIALS-SuiteSparse-under-conda.patch
-    # do not force the legacy std::string ABI when linking conda-forge CasADi
-    - 0004-Scope-CasADi-CXX11-ABI-detection-to-pip-casadi.patch
+    - 0001-Fix-Windows-cmake-prefix-path.patch
 
 build:
-  number: 1
+  number: 0
   script:
     # it is recommended to use the llvm-openmp package on windows
     # as vcomp14 is not updated by Microsoft anymore
@@ -63,7 +57,7 @@ tests:
 
 about:
   summary: Python interface for the IDAKLU solver
-  homepage: https://github.com/pybamm-team/pybammsolvers
+  homepage: https://github.com/pybamm-team/PyBaMM
   license: BSD-3-Clause
   license_file: LICENSE
 
