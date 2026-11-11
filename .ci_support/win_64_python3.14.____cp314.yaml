@@ -19,6 +19,6 @@ python:
 suitesparse:
 - '7'
 sundials:
-- '7.8'
+- '7.9'
 target_platform:
 - win-64
